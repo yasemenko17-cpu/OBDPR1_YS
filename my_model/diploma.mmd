@@ -1,0 +1,44 @@
+erDiagram
+USER {
+    int id PK
+    string name
+    string email
+}
+COURSE {
+    int id PK
+    int user_id FK
+    string title
+    string description
+}
+MODULE {
+    int id PK
+    int course_id FK
+    string title
+    int order_num
+}
+LESSON {
+    int id PK
+    int module_id FK
+    string title
+    string content
+}
+REVIEW {
+    int id PK
+    int user_id FK
+    int course_id FK
+    int rating
+    string comment
+}
+ENROLLMENT {
+    int id PK
+    int user_id FK
+    int course_id FK
+    string enrolled_at
+}
+USER ||--o{ COURSE: "створює"
+COURSE |o--o{ MODULE: "складається з"
+MODULE |o--o{ LESSON: "містить"
+USER ||--o{ REVIEW: "залишає"
+COURSE ||--o{ REVIEW: "має"
+USER ||--o{ ENROLLMENT: "реєструється на"
+COURSE ||--o{ ENROLLMENT: "має студентів"

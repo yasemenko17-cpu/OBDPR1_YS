@@ -1,5 +1,44 @@
 erDiagram
-    %% Замініть цей приклад власною моделлю вашої предметної області (розділ 6 завдання).
-    EXAMPLE {
-        int id PK
-    }
+CUSTOMER {
+    int id PK
+    string name
+    string email
+}
+CATEGORY {
+    int id PK
+    string name
+}
+PRODUCT {
+    int id PK
+    int category_id FK
+    string title
+    float price
+}
+ORDERS {
+    int id PK
+    int customer_id FK
+    string order_date
+}
+ORDER_LINE {
+    int id PK
+    int orders_id PK, FK
+    int product_id FK
+    int quantity
+}
+TAG {
+    int id PK
+    string name
+}
+PRODUCT_TAG {
+    int id PK
+    int product_id FK
+    int tag_id FK
+}
+
+CUSTOMER ||--o{ ORDERS: "робить"
+CATEGORY ||--o{ PRODUCT: "містить"
+ORDERS ||--|{ ORDER_LINE: "містить"
+PRODUCT ||--o{ ORDER_LINE: "входить в"
+PRODUCT ||--o{ PRODUCT_TAG: "має"
+TAG ||--o{ PRODUCT_TAG: "належить"
+CUSTOMER ||--o| ORDERS: "опціонально перевіряє"
