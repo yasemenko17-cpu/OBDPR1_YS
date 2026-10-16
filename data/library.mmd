@@ -1,0 +1,43 @@
+erDiagram
+    PUBLISHER {
+        int id PK
+        string name
+    }
+    BOOK {
+        int id PK
+        string title
+        string isbn UK
+        int publisher_id FK
+    }
+    AUTHOR {
+        int id PK
+        string full_name
+    }
+    COPY {
+        int book_id PK, FK
+        int copy_no PK
+        string shelf
+    }
+    READER {
+        int id PK
+        string full_name
+        string email UK
+    }
+    LIBRARY_CARD {
+        int id PK
+        date issued_on
+        int reader_id FK, UK
+    }
+    LOAN {
+        int id PK
+        date loaned_on
+        int reader_id FK
+        int book_id FK
+    }
+
+    PUBLISHER ||..o{ BOOK : "видає"
+    BOOK }o..|{ AUTHOR : "написана"
+    BOOK ||--|{ COPY : "має примірники"
+    READER ||..o| LIBRARY_CARD : "отримує"
+    READER ||..o{ LOAN : "оформлює"
+    BOOK ||..o{ LOAN : "видається"

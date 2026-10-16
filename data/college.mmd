@@ -1,0 +1,41 @@
+erDiagram
+    TEACHER {
+        int id PK
+        string full_name
+    }
+    STUDY_GROUP {
+        int id PK
+        string code
+        int teacher_id FK
+    }
+    STUDENT {
+        int id PK
+        string full_name
+        date birth_date
+        int study_group_id FK
+    }
+    SUBJECT {
+        int id PK
+        string title
+    }
+    LESSON {
+        int id PK
+        date held_on
+        int subject_id FK
+        int teacher_id FK
+        int study_group_id FK
+    }
+    ATTENDANCE {
+        int lesson_id PK, FK
+        int student_id PK, FK
+        bool present
+    }
+
+    TEACHER |o..o{ STUDY_GROUP : "куратор"
+    STUDY_GROUP ||..|{ STUDENT : "складається з"
+    TEACHER }o..o{ SUBJECT : "викладає"
+    SUBJECT ||..o{ LESSON : "проводиться з"
+    TEACHER ||..o{ LESSON : "проводить"
+    STUDY_GROUP ||..o{ LESSON : "відвідує"
+    LESSON ||--o{ ATTENDANCE : "фіксує"
+    STUDENT ||--o{ ATTENDANCE : "відмічається"

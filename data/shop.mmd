@@ -1,0 +1,44 @@
+erDiagram
+    CUSTOMER {
+        int id PK
+        string name
+        string email UK
+    }
+    ADDRESS {
+        int customer_id PK, FK
+        int addr_no PK
+        string city
+        string street
+    }
+    CATEGORY {
+        int id PK
+        string title
+    }
+    PRODUCT {
+        int id PK
+        string title
+        decimal price
+        int category_id FK
+    }
+    TAG {
+        int id PK
+        string name
+    }
+    ORDERS {
+        int id PK
+        date created_on
+        int customer_id FK
+    }
+    ORDER_LINE {
+        int orders_id PK, FK
+        int line_no PK
+        int qty
+        int product_id FK
+    }
+
+    CUSTOMER ||--o{ ADDRESS : "має адреси"
+    CATEGORY ||..o{ PRODUCT : "групує"
+    PRODUCT }o..o{ TAG : "позначено"
+    CUSTOMER ||..o{ ORDERS : "робить"
+    ORDERS ||--|{ ORDER_LINE : "містить"
+    PRODUCT ||..o{ ORDER_LINE : "продається у"
